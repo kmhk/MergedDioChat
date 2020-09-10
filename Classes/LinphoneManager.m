@@ -322,7 +322,7 @@ struct codec_name_pref_table codec_pref_table[] = {{"speex", 8000, "speex_8k_pre
 		[self lpConfigSetString:@"https://subscribe.linphone.org:444/wizard.php"
 		 forKey:@"xmlrpc_url"
 		 inSection:@"assistant"];
-		[self lpConfigSetString:@"sip:sems_sub@sip.tribu.monster" forKey:@"rls_uri" inSection:@"sip"];
+		[self lpConfigSetString:@"sip:sems_sub@sip.diomerc.com" forKey:@"rls_uri" inSection:@"sip"];
 		[self lpConfigSetBool:YES forKey:@"migration_xmlrpc"];
 	}
 	[self lpConfigSetBool:NO forKey:@"store_friends" inSection:@"misc"]; //so far, storing friends in files is not needed. may change in the future.
@@ -385,7 +385,7 @@ static int check_should_migrate_images(void *data, int argc, char **argv, char *
 			if (addr &&
 			    strstr(addr, [LinphoneManager.instance lpConfigStringForKey:@"domain_name"
 					  inSection:@"app"
-					  withDefault:@"sip.tribu.monster"]
+					  withDefault:@"sip.diomerc.com"]
 				   .UTF8String) != 0) {
 				LOGI(@"Migrating proxy config to use AVPF");
 				linphone_proxy_config_enable_avpf(proxy, TRUE);
@@ -404,11 +404,11 @@ static int check_should_migrate_images(void *data, int argc, char **argv, char *
 			if (addr &&
 			    strstr(addr, [LinphoneManager.instance lpConfigStringForKey:@"domain_name"
 					  inSection:@"app"
-					  withDefault:@"sip.tribu.monster"]
+					  withDefault:@"sip.diomerc.com"]
 				   .UTF8String) != 0) {
 				LOGI(@"Migrating proxy config to send quality report");
 				linphone_proxy_config_set_quality_reporting_collector(
-										      proxy, "sip:voip-metrics@sip.tribu.monster;transport=tls");
+										      proxy, "sip:voip-metrics@sip.diomerc.com;transport=tls");
 				linphone_proxy_config_set_quality_reporting_interval(proxy, 180);
 				linphone_proxy_config_enable_quality_reporting(proxy, TRUE);
 			}
@@ -427,7 +427,7 @@ static int check_should_migrate_images(void *data, int argc, char **argv, char *
 	if ([self lpConfigBoolForKey:@"lime_migration_done"] == FALSE) {
 		const MSList *proxies = linphone_core_get_proxy_config_list(LC);
 		while (proxies) {
-			if (!strcmp(linphone_proxy_config_get_domain((LinphoneProxyConfig *)proxies->data),"sip.tribu.monster")) {
+			if (!strcmp(linphone_proxy_config_get_domain((LinphoneProxyConfig *)proxies->data),"sip.diomerc.com")) {
 				linphone_core_set_lime_x3dh_server_url(LC, "https://lime.linphone.org/lime-server/lime-server.php");
 				break;
 			}
@@ -457,13 +457,13 @@ static int check_should_migrate_images(void *data, int argc, char **argv, char *
 	const bctbx_list_t * proxies = linphone_core_get_proxy_config_list(LC);
 	NSString *appDomain  = [LinphoneManager.instance lpConfigStringForKey:@"domain_name"
 				inSection:@"app"
-				withDefault:@"sip.tribu.monster"];
+				withDefault:@"sip.diomerc.com"];
 	while (proxies) {
 		LinphoneProxyConfig *config = proxies->data;
 		// can not create group chat without conference factory
 		if (!linphone_proxy_config_get_conference_factory_uri(config)) {
 			if (strcmp(appDomain.UTF8String, linphone_proxy_config_get_domain(config)) == 0) {
-				linphone_proxy_config_set_conference_factory_uri(config, "sip:conference-factory@sip.tribu.monster");
+				linphone_proxy_config_set_conference_factory_uri(config, "sip:conference-factory@sip.diomerc.com");
 			}
 		}
 		proxies = proxies->next;
@@ -1204,7 +1204,7 @@ void popup_link_account_cb(LinphoneAccountCreator *creator, LinphoneAccountCreat
 		    strcmp(linphone_proxy_config_get_domain(cfg),
 			   [LinphoneManager.instance lpConfigStringForKey:@"domain_name"
 			    inSection:@"app"
-			    withDefault:@"sip.tribu.monster"]
+			    withDefault:@"sip.diomerc.com"]
 			   .UTF8String) == 0) {
 			UIAlertController *errView = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Link your account", nil)
 						      message:[NSString stringWithFormat:NSLocalizedString(@"Link your Linphone.org account %s to your phone number.", nil),

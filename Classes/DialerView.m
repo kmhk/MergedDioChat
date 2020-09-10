@@ -374,7 +374,7 @@ static UICompositeViewDescription *compositeDescription = nil;
             username = (NSString *)[usernameParts firstObject];
         }
         
-        NSString *value = [NSString stringWithFormat:@"%@@sip.tribu.monster", username];
+        NSString *value = [NSString stringWithFormat:@"%@@sip.diomerc.com", username];
 		LinphoneAddress *addr = [LinphoneUtils normalizeSipOrPhoneAddress:value];
 		[LinphoneManager.instance call:addr];
 		if (addr)
@@ -401,7 +401,7 @@ static UICompositeViewDescription *compositeDescription = nil;
         username = (NSString *)[usernameParts firstObject];
     }
     
-    NSString *value = [NSString stringWithFormat:@"%@@sip.tribu.monster", username];
+    NSString *value = [NSString stringWithFormat:@"%@@sip.diomerc.com", username];
     
 	[ContactSelection setSelectionMode:ContactSelectionModeEdit];
 	[ContactSelection setAddAddress:value];

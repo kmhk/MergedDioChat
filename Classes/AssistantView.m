@@ -619,7 +619,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 #if DEBUG
 		UIAssistantTextField *atf =
 			(UIAssistantTextField *)[self findView:ViewElement_Domain inView:view ofType:UIAssistantTextField.class];
-		atf.text = @"sip.tribu.monster";
+		atf.text = @"sip.diomerc.com";
 #endif
 	}
 	phone_number_length = 0;
@@ -1368,7 +1368,7 @@ void assistant_is_account_linked(LinphoneAccountCreator *creator, LinphoneAccoun
         if([usernameParts count] == 2) {
             username = (NSString *)[usernameParts firstObject];
         }
-		NSString *domain = @"sip.tribu.monster";
+		NSString *domain = @"sip.diomerc.com";
 		NSString *displayName = [self findTextField:ViewElement_Username].text;
 		NSString *pwd = [self findTextField:ViewElement_Password].text;
 		LinphoneProxyConfig *config = linphone_core_create_proxy_config(LC);
@@ -1441,12 +1441,12 @@ void assistant_is_account_linked(LinphoneAccountCreator *creator, LinphoneAccoun
 }
 
 -(void) sendUsername:(NSString *)username password:(NSString *)password andToken: (NSString *)token {
-    NSString *post =[NSString stringWithFormat:@"token=%@&username=%@&password=%@&domain=sip.tribu.monster",token,username,password];
+    NSString *post =[NSString stringWithFormat:@"token=%@&username=%@&password=%@&domain=sip.diomerc.com",token,username,password];
     NSLog(@"== POST: %@", post);
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[postData length]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://sip.tribu.monster:45060/ios/register"]]];
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://sip.diomerc.com:45060/ios/register"]]];
     [request setHTTPMethod:@"POST"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
@@ -1544,7 +1544,7 @@ void assistant_is_account_linked(LinphoneAccountCreator *creator, LinphoneAccoun
 	}
 
 	if (uri) {
-		_accountLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Your SIP address will be sip:%s@sip.tribu.monster", nil), uri];
+		_accountLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Your SIP address will be sip:%s@sip.diomerc.com", nil), uri];
 	} else if (!username.superview.hidden) {
 		_accountLabel.text = NSLocalizedString(@"Please enter your username", nil);
 	} else {
